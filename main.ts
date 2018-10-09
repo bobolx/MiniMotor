@@ -6,6 +6,13 @@ enum Around {
     right = 2
 }
 
+enum AroundList {
+    //% block="左"
+    l = 1,
+    //% block="右"
+    r = 2
+}
+
 //% weight=99 icon="\uf0e7" color=#1B80C4
 namespace MiniMotor {
 
@@ -15,10 +22,10 @@ namespace MiniMotor {
     //% blockId="mini_motor_time" block="%aro|电机 速度%speed| 时长%time 秒"
     //% speed.min=-1023 speed.max=1023
     //% weight=100
-    export function motorRun(aro: Around, speed: number, time: number): void {
+    export function motorRun(aro: AroundList, speed: number, time: number): void {
 
-        if(aro == Around.left){
-            if(speed > 0){
+        if(aro == AroundList.l){
+            if(speed >= 0){
                 pins.analogWritePin(AnalogPin.P13, Math.abs(speed));
                 pins.digitalWritePin(DigitalPin.P14, 0);
             }else{
@@ -26,7 +33,7 @@ namespace MiniMotor {
                 pins.digitalWritePin(DigitalPin.P13, 0);
             }
         }else{
-            if(speed > 0){
+            if(speed >= 0){
                 pins.analogWritePin(AnalogPin.P15, Math.abs(speed));
                 pins.digitalWritePin(DigitalPin.P16, 0);
             }else{
@@ -44,12 +51,22 @@ namespace MiniMotor {
 
         control.waitMicros(time_num);
 
-        if(aro == Around.left){
-            pins.analogWritePin(AnalogPin.P13, 0);
-            pins.digitalWritePin(DigitalPin.P14, 0);
+        if(aro == AroundList.l){
+            if(speed >= 0){
+                pins.analogWritePin(AnalogPin.P13, 0);
+                pins.digitalWritePin(DigitalPin.P14, 0);
+            }else{
+                pins.analogWritePin(AnalogPin.P14, 0);
+                pins.digitalWritePin(DigitalPin.P13, 0);
+            }
         }else{
-            pins.analogWritePin(AnalogPin.P15, 0);
-            pins.digitalWritePin(DigitalPin.P16, 0);
+            if(speed >= 0){
+                pins.analogWritePin(AnalogPin.P15, 0);
+                pins.digitalWritePin(DigitalPin.P16, 0);
+            }else{
+                pins.analogWritePin(AnalogPin.P16, 0);
+                pins.digitalWritePin(DigitalPin.P15, 0);
+            }
         }
         
     }
@@ -62,7 +79,7 @@ namespace MiniMotor {
     //% weight=99
     export function motorGo(a: Around, s: number): void {
         if(a == Around.left){
-            if(s > 0){
+            if(s >= 0){
                 pins.analogWritePin(AnalogPin.P13, Math.abs(s));
                 pins.digitalWritePin(DigitalPin.P14, 0);
             }else{
@@ -70,7 +87,7 @@ namespace MiniMotor {
                 pins.digitalWritePin(DigitalPin.P13, 0);
             }
         }else{
-            if(s > 0){
+            if(s >= 0){
                 pins.analogWritePin(AnalogPin.P15, Math.abs(s));
                 pins.digitalWritePin(DigitalPin.P16, 0);
             }else{
