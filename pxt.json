@@ -1,0 +1,13 @@
+{
+    "name": "MiniMotor",
+    "dependencies": {
+        "core": "*"
+    },
+    "description": "Mini 直流电机",
+    "icon": "./als.png",
+    "license": "MIT",
+    "files": [
+        "main.ts"
+    ],
+    "public": true
+}
