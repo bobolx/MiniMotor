@@ -6,70 +6,8 @@ enum Around {
     right = 2
 }
 
-enum AroundList {
-    //% block="左"
-    l = 1,
-    //% block="右"
-    r = 2
-}
-
 //% weight=99 icon="\uf0e7" color=#1B80C4
 namespace MiniMotor {
-
-    /**
-     * 设置电机
-     */
-    //% blockId="mini_motor_time" block="%aro|电机 速度%speed| 时长%time 秒"
-    //% speed.min=-1023 speed.max=1023
-    //% weight=100
-    export function motorRun(aro: AroundList, speed: number, time: number): void {
-
-        if(aro == AroundList.l){
-            if(speed > 0){
-                pins.analogWritePin(AnalogPin.P13, Math.abs(speed));
-                pins.digitalWritePin(DigitalPin.P14, 0);
-            }else{
-                pins.analogWritePin(AnalogPin.P14, Math.abs(speed));
-                pins.digitalWritePin(DigitalPin.P13, 0);
-            }
-        }else{
-            if(speed > 0){
-                pins.analogWritePin(AnalogPin.P15, Math.abs(speed));
-                pins.digitalWritePin(DigitalPin.P16, 0);
-            }else{
-                pins.analogWritePin(AnalogPin.P16, Math.abs(speed));
-                pins.digitalWritePin(DigitalPin.P15, 0);
-            }
-        }
-
-        //添加时间控制
-        if(time < 0){
-            time = 0;
-        }
-        
-        let time_num = time*1000000;
-
-        control.waitMicros(time_num);
-
-        if(aro == AroundList.l){
-            if(speed > 0){
-                pins.analogWritePin(AnalogPin.P13, 0);
-                pins.digitalWritePin(DigitalPin.P14, 0);
-            }else{
-                pins.analogWritePin(AnalogPin.P14, 0);
-                pins.digitalWritePin(DigitalPin.P13, 0);
-            }
-        }else{
-            if(speed > 0){
-                pins.analogWritePin(AnalogPin.P15, 0);
-                pins.digitalWritePin(DigitalPin.P16, 0);
-            }else{
-                pins.analogWritePin(AnalogPin.P16, 0);
-                pins.digitalWritePin(DigitalPin.P15, 0);
-            }
-        }
-        
-    }
 
     /**
      * 设置电机持续运动
