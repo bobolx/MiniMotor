@@ -17,10 +17,10 @@ namespace MiniMotor {
     //% weight=100
     export function motorRun(aro: Around, speed: number, time: number): void {
 
-        if (speed >= 1023) {
+        if (speed > 1023) {
             speed = 1023;
         }
-        if (speed <= -1023) {
+        if (speed < -1023) {
             speed = -1023;
         }
 
@@ -34,7 +34,7 @@ namespace MiniMotor {
             if(speed > 0){
                 pins.analogWritePin(AnalogPin.P13, Math.abs(speed));
                 pins.digitalWritePin(DigitalPin.P14, 0);
-            }else{
+            }else if(speed < 0){
                 pins.analogWritePin(AnalogPin.P14, Math.abs(speed));
                 pins.digitalWritePin(DigitalPin.P13, 0);
             }
@@ -48,36 +48,29 @@ namespace MiniMotor {
             if(speed > 0){
                 pins.analogWritePin(AnalogPin.P15, Math.abs(speed));
                 pins.digitalWritePin(DigitalPin.P16, 0);
-            }else{
+            }else if(speed < 0){
                 pins.analogWritePin(AnalogPin.P16, Math.abs(speed));
                 pins.digitalWritePin(DigitalPin.P15, 0);
             }
         }
 
-        //添加时间控制
-        if(time < 0){
-            time = 0;
-        }
-        
-        let time_num = time*1000;
+        if(speed != 0){
+            //添加时间控制
+            if(time < 0){
+                time = 0;
+            }
 
-        basic.pause(time_num);
+            let time_num = time*1000000;
 
-        if(aro == Around.left){
-            if(speed > 0){
-                pins.analogWritePin(AnalogPin.P13, 0);
+            control.waitMicros(time_num);
+
+            if(aro == Around.left){
+                pins.digitalWritePin(DigitalPin.P13, 0);
                 pins.digitalWritePin(DigitalPin.P14, 0);
             }else{
-                pins.analogWritePin(AnalogPin.P14, 0);
-                pins.digitalWritePin(DigitalPin.P13, 0);
-            }
-        }else{
-            if(speed > 0){
-                pins.analogWritePin(AnalogPin.P15, 0);
-                pins.digitalWritePin(DigitalPin.P16, 0);
-            }else{
-                pins.analogWritePin(AnalogPin.P16, 0);
                 pins.digitalWritePin(DigitalPin.P15, 0);
+                pins.digitalWritePin(DigitalPin.P16, 0);
+
             }
         }
         
@@ -109,7 +102,7 @@ namespace MiniMotor {
             if(s > 0){
                 pins.analogWritePin(AnalogPin.P13, Math.abs(s));
                 pins.digitalWritePin(DigitalPin.P14, 0);
-            }else{
+            }else if(s < 0){
                 pins.analogWritePin(AnalogPin.P14, Math.abs(s));
                 pins.digitalWritePin(DigitalPin.P13, 0);
             }
@@ -123,7 +116,7 @@ namespace MiniMotor {
             if(s > 0){
                 pins.analogWritePin(AnalogPin.P15, Math.abs(s));
                 pins.digitalWritePin(DigitalPin.P16, 0);
-            }else{
+            }else if(s < 0){
                 pins.analogWritePin(AnalogPin.P16, Math.abs(s));
                 pins.digitalWritePin(DigitalPin.P15, 0);
             }
