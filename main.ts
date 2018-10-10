@@ -124,6 +124,24 @@ namespace MiniMotor {
         
     }
 
+    /**
+     * 停止所有电机
+     */
+    //% blockId="mini_motor_stop" block="停止所有电机"
+    //% weight=98
+    export function motorStop(): void {
+        pins.setPull(DigitalPin.P13, PinPullMode.PullUp);
+        pins.setPull(DigitalPin.P14, PinPullMode.PullUp);
+        pins.setPull(DigitalPin.P15, PinPullMode.PullUp);
+        pins.setPull(DigitalPin.P16, PinPullMode.PullUp);
+
+        pins.digitalWritePin(DigitalPin.P13, 0);
+        pins.digitalWritePin(DigitalPin.P14, 0);
+    
+        pins.digitalWritePin(DigitalPin.P15, 0);
+        pins.digitalWritePin(DigitalPin.P16, 0);   
+    }
+
 }
 
 
