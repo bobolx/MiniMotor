@@ -17,11 +17,20 @@ namespace MiniMotor {
     //% weight=99
     export function motorGo(a: Around, s: number): void {
 
-        if (s >= 1023) {
-            s = 1023
+        pins.setPull(DigitalPin.P13, PinPullMode.PullUp);
+        pins.setPull(DigitalPin.P14, PinPullMode.PullUp);
+        pins.setPull(DigitalPin.P15, PinPullMode.PullUp);
+        pins.setPull(DigitalPin.P16, PinPullMode.PullUp);
+        pins.digitalWritePin(DigitalPin.P13, 0);
+        pins.digitalWritePin(DigitalPin.P14, 0);
+        pins.digitalWritePin(DigitalPin.P15, 0);
+        pins.digitalWritePin(DigitalPin.P16, 0);
+
+        if (s > 1023) {
+            s = 1023;
         }
-        if (s <= -1023) {
-            s = -1023
+        if (s < -1023) {
+            s = -1023;
         }
 
         if(a == Around.left){
