@@ -12,7 +12,7 @@ namespace MiniMotor {
     /**
      * 设置电机
      */
-    //% blockId="mini_motor_time" block="%aro|电机 速度%speed| 时长%time 秒"
+    //% blockId="mini_motor_time" block="%aro|电机 速度%speed| 时长%time|秒"
     //% speed.min=-1023 speed.max=1023
     //% weight=100
     export function motorRun(aro: Around, speed: number, time: number): void {
