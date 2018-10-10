@@ -16,6 +16,14 @@ namespace MiniMotor {
     //% s.min=-1023 s.max=1023
     //% weight=99
     export function motorGo(a: Around, s: number): void {
+
+        if (s >= 1023) {
+            s = 1023
+        }
+        if (s <= -1023) {
+            s = -1023
+        }
+
         if(a == Around.left){
             if(s > 0){
                 pins.analogWritePin(AnalogPin.P13, Math.abs(s));
