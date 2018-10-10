@@ -17,15 +17,6 @@ namespace MiniMotor {
     //% weight=99
     export function motorGo(a: Around, s: number): void {
 
-        pins.setPull(DigitalPin.P13, PinPullMode.PullUp);
-        pins.setPull(DigitalPin.P14, PinPullMode.PullUp);
-        pins.setPull(DigitalPin.P15, PinPullMode.PullUp);
-        pins.setPull(DigitalPin.P16, PinPullMode.PullUp);
-        pins.digitalWritePin(DigitalPin.P13, 0);
-        pins.digitalWritePin(DigitalPin.P14, 0);
-        pins.digitalWritePin(DigitalPin.P15, 0);
-        pins.digitalWritePin(DigitalPin.P16, 0);
-
         if (s > 1023) {
             s = 1023;
         }
@@ -34,6 +25,12 @@ namespace MiniMotor {
         }
 
         if(a == Around.left){
+            pins.setPull(DigitalPin.P13, PinPullMode.PullUp);
+            pins.setPull(DigitalPin.P14, PinPullMode.PullUp);
+
+            pins.digitalWritePin(DigitalPin.P13, 0);
+            pins.digitalWritePin(DigitalPin.P14, 0);
+
             if(s > 0){
                 pins.analogWritePin(AnalogPin.P13, Math.abs(s));
                 pins.digitalWritePin(DigitalPin.P14, 0);
@@ -42,6 +39,12 @@ namespace MiniMotor {
                 pins.digitalWritePin(DigitalPin.P13, 0);
             }
         }else{
+            pins.setPull(DigitalPin.P15, PinPullMode.PullUp);
+            pins.setPull(DigitalPin.P16, PinPullMode.PullUp);
+
+            pins.digitalWritePin(DigitalPin.P15, 0);
+            pins.digitalWritePin(DigitalPin.P16, 0);
+
             if(s > 0){
                 pins.analogWritePin(AnalogPin.P15, Math.abs(s));
                 pins.digitalWritePin(DigitalPin.P16, 0);
